@@ -1,9 +1,10 @@
 {
   "name": "Food",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
+  "main": "./bin/start",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node --use_strict ./bin/start"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
