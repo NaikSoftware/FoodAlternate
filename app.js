@@ -25,6 +25,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
+// IMPORTANT: Your application HAS to respond to GET /health with status 200
+//            for OpenShift health monitoring
+app.use('/health', function (req, res) {
+  res.writeHead(200);
+  res.end();
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
