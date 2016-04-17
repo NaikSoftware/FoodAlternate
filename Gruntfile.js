@@ -1,11 +1,10 @@
 module.exports = function (grunt) {
     grunt.initConfig({
-        babel: {
-            options: {
-                sourceMap: false,
-                presets: ['es2015', 'react']
-            },
+        browserify: {
             dist: {
+                options: {
+                    transform: [["babelify", {presets: ['es2015', 'react']}]]
+                },
                 files: [{
                     expand: true,
                     cwd: 'client/javascript/',
@@ -65,10 +64,11 @@ module.exports = function (grunt) {
             }
         }
     });
+    grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.registerTask('prod', ['babel', 'uglify', 'cssmin', 'concat']);
+    grunt.registerTask('prod', ['browserify', 'uglify', 'cssmin', 'concat']);
 };
