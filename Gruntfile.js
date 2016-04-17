@@ -58,8 +58,8 @@ module.exports = function (grunt) {
         processhtml: {
             html_edit: {
                 files: {
-                    'templates/index.html': 'templates/index.html',
-                    'templates/header.html': 'templates/header.html'
+                    '(unused)templates/index.html': 'templates/index.html',
+                    '(unused)templates/header.html': 'templates/header.html'
                 }
             }
         }
