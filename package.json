@@ -4,7 +4,7 @@
   "private": true,
   "main": "./bin/start",
   "scripts": {
-    "start": "./node_modules/grunt-cli/bin/grunt prod && node --use_strict ./bin/start"
+    "start": "grunt prod && node --use_strict ./bin/start"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
