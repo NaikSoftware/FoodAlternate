@@ -16,6 +16,7 @@ const styles = {
 const Toolbar = () => (
     <AppBar
         title={<span style={styles.title}>Food Alternate</span>}
+        showMenuIconButton={false}
         iconElementRight={<FlatButton label="Save" />}
     />
 );

@@ -4,8 +4,7 @@
   "private": true,
   "main": "./bin/start",
   "scripts": {
-    "prepublish": "./node_modules/grunt-cli/bin/grunt prod",
-    "start": "node --use_strict ./bin/start"
+    "start": "./node_modules/grunt-cli/bin/grunt prod && node --use_strict ./bin/start"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
