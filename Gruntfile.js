@@ -5,13 +5,9 @@ module.exports = function (grunt) {
                 options: {
                     transform: [["babelify", {presets: ['es2015', 'react']}]]
                 },
-                files: [{
-                    expand: true,
-                    cwd: 'client/javascript/',
-                    src: ['**/*.jsx', '**/*.js'],
-                    dest: 'public/javascript/',
-                    ext: '.js'
-                }]
+                files: {
+                    'public/javascript/bundle.js': 'client/javascript/**/*.js*'
+                }
             }
         },
         uglify: {
