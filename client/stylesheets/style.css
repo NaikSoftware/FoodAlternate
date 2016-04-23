@@ -2,3 +2,14 @@ body {
     max-width: 1280px;
     margin: auto;
 }
+
+@media (min-width: 720px) {
+    .login-form {
+        max-width: 30em;
+        margin: 3em auto auto;
+    }
+}
+
+.login-form {
+    padding: 0 2em;
+}
