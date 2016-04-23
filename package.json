@@ -4,7 +4,7 @@
   "private": true,
   "main": "./bin/start",
   "scripts": {
-    "install": "./node_modules/grunt-cli/bin/grunt prod",
+    "prepublish": "./node_modules/grunt-cli/bin/grunt prod",
     "start": "node --use_strict ./bin/start"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "material-ui": "^0.14.4",
     "morgan": "~1.6.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
