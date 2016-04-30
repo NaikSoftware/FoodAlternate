@@ -7,5 +7,9 @@ export default {
 
     login(name, password) {
 
+    },
+    
+    autoLogin(verificationToken) {
+        return axios.get('users/autologin', verificationToken);
     }
 }

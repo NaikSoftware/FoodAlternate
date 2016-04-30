@@ -19,6 +19,7 @@ function getStateFromStore() {
 const App = React.createClass({
 
     getInitialState() {
+        Cookies.set('verificationToken', 'testtoken');
         return getStateFromStore();
     },
 
