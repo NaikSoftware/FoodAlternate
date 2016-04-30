@@ -2,6 +2,7 @@ import React from 'react';
 
 import Toolbar from './AppBar';
 import LoginForm from './LoginForm';
+import LoadingIndicator from './LoadingIndicator';
 
 import UserStore from '../store/UserStore';
 import AppActions from '../AppActions';
@@ -10,7 +11,8 @@ const App = React.createClass({
 
     getInitialState() {
         return {
-            isLogined: false
+            isLogined: false,
+            isLoading: true
         }
     },
 
@@ -19,9 +21,17 @@ const App = React.createClass({
     },
 
     render() {
+        var content;
+        if (this.state.isLoading) {
+            content = <LoadingIndicator/>;
+        } else if (this.state.isLogined) {
+            content = null; // todo: food table
+        } else {
+            content = <LoginForm/>;
+        }
         return <div>
             <Toolbar/>
-            {this.state.isLogined ? null : <LoginForm/>}
+            {content}
         </div>
     }
 });
