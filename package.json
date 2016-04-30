@@ -4,7 +4,8 @@
   "private": true,
   "main": "./bin/start",
   "scripts": {
-    "install": "grunt prod"
+    "install": "grunt prod",
+    "start": "./bin/start"
   },
   "dependencies": {
     "axios": "^0.10.0",
