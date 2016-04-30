@@ -29,6 +29,7 @@
     "grunt-contrib-uglify": "^1.0.1",
     "grunt-processhtml": "^0.3.8",
     "grunt-react": "^0.12.3",
+    "js-cookie": "^2.1.1",
     "material-ui": "^0.14.4",
     "morgan": "~1.6.1",
     "react": "^15.0.1",

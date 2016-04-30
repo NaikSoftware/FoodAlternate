@@ -21,6 +21,14 @@ const AppActions = {
                     error: err
                 })
             })
+    },
+    
+    tryAutoLogin(verificationToken) {
+        console.log('tryAutoLogin called');
+        AppDispatcher.dispatch({
+            type: AppConstants.RESPONSE_LOGIN_FAIL,
+            error: 'Auto login not implemented'
+        });
     }
 };
 

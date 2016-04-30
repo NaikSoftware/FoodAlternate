@@ -20,21 +20,29 @@ const UserStore = Object.assign({}, EventEmitter.prototype, {
     isLogined() {
         return isLogined;
     },
+    
+    getLoadingError() {
+       return loadingError; 
+    },
 
     emitChange: function () {
+        console.log('Emit change');
         this.emit(CHANGE);
     },
 
     addChangeListener: function(callback) {
+        console.log('Add listener');
         this.on(CHANGE, callback);
     },
 
     removeChangeListener: function(callback) {
+        console.log('Remove listener');
         this.removeListener(CHANGE, callback);
     }
 });
 
 AppDispatcher.register(function (action) {
+    console.log('Dispatch action:' + JSON.stringify(action));
     switch (action.type) {
         case AppConstants.REQUEST_LOGIN: {
             isLoading = true;
@@ -45,7 +53,7 @@ AppDispatcher.register(function (action) {
         case AppConstants.RESPONSE_LOGIN_FAIL: {
             isLoading = false;
             isLogined = false;
-            loadingError = null;
+            loadingError = action.error;
             UserStore.emitChange();
             break;
         }
@@ -53,7 +61,7 @@ AppDispatcher.register(function (action) {
         case AppConstants.RESPONSE_LOGIN_SUCCESS: {
             isLoading = false;
             isLogined = true;
-            loadingError = action.error;
+            loadingError = null;
             UserStore.emitChange();
             break;
         }

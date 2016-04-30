@@ -1,4 +1,5 @@
 import React from 'react';
+import Cookies from 'js-cookie';
 
 import Toolbar from './AppBar';
 import LoginForm from './LoginForm';
@@ -7,17 +8,36 @@ import LoadingIndicator from './LoadingIndicator';
 import UserStore from '../store/UserStore';
 import AppActions from '../AppActions';
 
+function getStateFromStore() {
+    return {
+        isLoading: UserStore.isLoading(),
+        isLogined: UserStore.isLogined(),
+        loadingError: UserStore.getLoadingError()
+    }
+}
+
 const App = React.createClass({
 
     getInitialState() {
-        return {
-            isLogined: false,
-            isLoading: true
-        }
+        return getStateFromStore();
     },
 
     componentWillMount() {
-        // check logined and refresh state
+        UserStore.addChangeListener(this.onChange);
+    },
+
+    componentWillUnmount() {
+        UserStore.removeChangeListener(this.onChange);
+    },
+
+    onChange() {
+        let state = getStateFromStore();
+        console.log('onChange called with loadingError: ' + state.loadingError);
+        this.setState(state);
+    },
+
+    componentDidMount() {
+        AppActions.tryAutoLogin(Cookies.get('verificationToken'));
     },
 
     render() {
