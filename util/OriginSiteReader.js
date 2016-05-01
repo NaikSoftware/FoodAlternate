@@ -28,10 +28,10 @@ const OriginSiteReader = {
                         table.lines.push({
                             id: form.children('input[name="Id"]').val(),
                             header: form.find('a').text().trim(),
-                            first: {
-                                name: form.find('input[name="isFirst"]').parent('label').text().trim(),
-                                checked: form.find('input[name="isFirst"]').attr('checked') === 'checked'
-                            }
+                            first:  readFoodItem('isFirst', form),
+                            second: readFoodItem('isSecondGarnir', form),
+                            third:  readFoodItem('isSecondMeat', form),
+                            fourth: readFoodItem('isSalad', form)
                         });
                     });
 
@@ -50,5 +50,13 @@ const OriginSiteReader = {
         return promise;
     }
 };
+
+function readFoodItem(type, form) {
+    var inputNode = form.find('input[name="'+ type + '"]');
+    return {
+        name: inputNode.parent('label').text().trim(),
+        checked: inputNode.attr('checked') === 'checked'
+    }
+}
 
 module.exports = OriginSiteReader;
