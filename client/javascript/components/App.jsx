@@ -19,7 +19,7 @@ function getStateFromStore() {
 const App = React.createClass({
 
     getInitialState() {
-        Cookies.set('verificationToken', 'testtoken');
+        Cookies.set('authToken', '9886BDD840ACA30A6AB2360B8F922AD02AE2804A4A700C1692E9227B8AE257B43215EA9F827B3B4B8B32641E0411EB6E83C1EB91CA5C0DFF0692E856A4EC7DD91BA6D1322AB68F6B83C8930FBED3F8BEF97B43CF83BC1B4DF82A89A5305166019464CE6621EC3BAC36DFD');
         return getStateFromStore();
     },
 
@@ -38,7 +38,7 @@ const App = React.createClass({
     },
 
     componentDidMount() {
-        AppActions.tryAutoLogin(Cookies.get('verificationToken'));
+        AppActions.tryAutoLogin(Cookies.get('authToken'));
     },
 
     render() {

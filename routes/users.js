@@ -3,9 +3,9 @@ var express = require('express');
 
 var router = express.Router();
 
-/* Try login with verificationToken*/
+/* Try login with auth token */
 router.get('/autologin', function (req, res, next) {
-    var token = req.params.auth_token;
+    var token = req.query.auth_token;
 
     originSiteReader.readFoodTable(token).then(function (table) {
         res.send({

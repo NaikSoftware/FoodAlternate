@@ -10,6 +10,10 @@ export default {
     },
     
     autoLogin(authToken) {
-        return axios.get('users/autologin', authToken);
+        return axios.get('users/autologin', {
+            params: {
+                auth_token: authToken
+            }
+        });
     }
 }
