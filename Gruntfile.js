@@ -1,5 +1,8 @@
 module.exports = function (grunt) {
     grunt.initConfig({
+        clean: {
+            contents: ['public/javascript/*', 'public/stylesheets/*']
+        },
         browserify: {
             dist: {
                 options: {
@@ -60,11 +63,12 @@ module.exports = function (grunt) {
             }
         }
     });
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.registerTask('prod', ['browserify', 'uglify', 'cssmin', 'concat']);
+    grunt.registerTask('prod', ['clean', 'browserify', 'uglify', 'cssmin', 'concat']);
 };
