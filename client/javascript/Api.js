@@ -9,7 +9,7 @@ export default {
 
     },
     
-    autoLogin(verificationToken) {
-        return axios.get('users/autologin', verificationToken);
+    autoLogin(authToken) {
+        return axios.get('users/autologin', authToken);
     }
 }

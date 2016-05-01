@@ -1,13 +1,23 @@
+var originSiteReader = require('../util/OriginSiteReader');
 var express = require('express');
+
 var router = express.Router();
 
 /* Try login with verificationToken*/
-router.get('/autologin', function(req, res, next) {
-  var token = req.params.verification_token;
-  res.send({
-      status: 'ERROR',
-      message: 'Not implemented server query'
-  });
+router.get('/autologin', function (req, res, next) {
+    var token = req.params.auth_token;
+
+    originSiteReader.readFoodTable(token).then(function (table) {
+        res.send({
+            status: 'OK',
+            data: table
+        });
+    }).catch(function (err) {
+        res.send({
+            status: 'ERROR',
+            message: err
+        });
+    });
 });
 
 module.exports = router;

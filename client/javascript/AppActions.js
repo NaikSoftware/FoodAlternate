@@ -27,22 +27,23 @@ const AppActions = {
             })
     },
     
-    tryAutoLogin(verificationToken) {
+    tryAutoLogin(authToken) {
         AppDispatcher.dispatch({
             type: AppConstants.REQUEST_LOGIN
         });
         
-        if (!verificationToken) {
+        if (!authToken) {
             AppDispatcher.dispatch({
                 type: AppConstants.RESPONSE_LOGIN_FAIL,
                 error: 'Verification token must be not null'
             });
         } else {
-            Api.autoLogin(verificationToken)
+            Api.autoLogin(authToken)
                 .then(({data}) => {
                     if (data.status === 'OK') {
                         AppDispatcher.dispatch({
-                            type: AppConstants.RESPONSE_LOGIN_SUCCESS
+                            type: AppConstants.RESPONSE_LOGIN_SUCCESS,
+                            table: data.data
                         })
                     } else {
                         AppDispatcher.dispatch({
