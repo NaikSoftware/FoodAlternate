@@ -5,6 +5,7 @@ import Toolbar from './AppBar';
 import LoginForm from './LoginForm';
 import LoadingIndicator from './LoadingIndicator';
 import LoginErrorDialog from './LoginErrorDialog';
+import FoodTable from './FoodTable';
 
 import UserStore from '../store/UserStore';
 import AppActions from '../AppActions';
@@ -46,7 +47,7 @@ const App = React.createClass({
         if (this.state.isLoading) {
             content = <LoadingIndicator/>;
         } else if (this.state.isLogined) {
-            content = null; // todo: food table
+            content = <FoodTable/>;
         } else {
             content = <LoginForm loginCallback={AppActions.login}/>;
         }

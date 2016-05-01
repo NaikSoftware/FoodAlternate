@@ -48,7 +48,10 @@ const AppActions = {
 function processLoginResponse(response, autologin) {
     if (response.status === 'OK') {
         AppDispatcher.dispatch({
-            type: AppConstants.RESPONSE_LOGIN_SUCCESS,
+            type: AppConstants.RESPONSE_LOGIN_SUCCESS
+        });
+        AppDispatcher.dispatch({
+            type: AppConstants.FOOD_LOADED,
             table: response.data
         })
     } else {
