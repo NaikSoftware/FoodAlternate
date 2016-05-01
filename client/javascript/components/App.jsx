@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Toolbar from './AppBar';
 import LoginForm from './LoginForm';
 import LoadingIndicator from './LoadingIndicator';
+import LoginErrorDialog from './LoginErrorDialog';
 
 import UserStore from '../store/UserStore';
 import AppActions from '../AppActions';
@@ -19,7 +20,6 @@ function getStateFromStore() {
 const App = React.createClass({
 
     getInitialState() {
-        Cookies.set('authToken', '9886BDD840ACA30A6AB2360B8F922AD02AE2804A4A700C1692E9227B8AE257B43215EA9F827B3B4B8B32641E0411EB6E83C1EB91CA5C0DFF0692E856A4EC7DD91BA6D1322AB68F6B83C8930FBED3F8BEF97B43CF83BC1B4DF82A89A5305166019464CE6621EC3BAC36DFD');
         return getStateFromStore();
     },
 
@@ -33,12 +33,12 @@ const App = React.createClass({
 
     onChange() {
         let state = getStateFromStore();
-        console.log('onChange called with loadingError: ' + state.loadingError);
+        if (state.loadingError && !state.isLogined) state.loginError = true;
         this.setState(state);
     },
 
     componentDidMount() {
-        AppActions.tryAutoLogin(Cookies.get('authToken'));
+        AppActions.tryAutoLogin(Cookies.get('auth_token'));
     },
 
     render() {
@@ -48,12 +48,17 @@ const App = React.createClass({
         } else if (this.state.isLogined) {
             content = null; // todo: food table
         } else {
-            content = <LoginForm/>;
+            content = <LoginForm loginCallback={AppActions.login}/>;
         }
         return <div>
             <Toolbar/>
             {content}
+            {this.state.loginError ? <LoginErrorDialog handleClose={this.handleCloseLoginError}/> : null}
         </div>
+    },
+
+    handleCloseLoginError() {
+        this.setState({loginError: false});
     }
 });
 

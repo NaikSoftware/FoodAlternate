@@ -6,14 +6,13 @@ import axios from 'axios';
 export default {
 
     login(name, password) {
-
+        return axios.post('users/login', {
+            username: name,
+            password: password
+        })
     },
-    
-    autoLogin(authToken) {
-        return axios.get('users/autologin', {
-            params: {
-                auth_token: authToken
-            }
-        });
+
+    autoLogin() {
+        return axios.post('users/autologin');
     }
 }
