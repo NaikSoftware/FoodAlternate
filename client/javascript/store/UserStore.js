@@ -6,6 +6,7 @@ import AppDispatcher from '../AppDispatcher';
 import AppConstants from '../AppConstants';
 
 let loadingError = null;
+let isAutologin = false;
 let isLoading = false;
 let isLogined = false;
 
@@ -13,16 +14,13 @@ const CHANGE = 'CHANGED_USER_STORE_EVENT';
 
 const UserStore = Object.assign({}, EventEmitter.prototype, {
 
-    isLoading() {
-        return isLoading;
-    },
-
-    isLogined() {
-        return isLogined;
-    },
-    
-    getLoadingError() {
-       return loadingError; 
+    getState: function () {
+        return {
+            loadingError: loadingError,
+            isAutologin: isAutologin,
+            isLoading: isLoading,
+            isLogined: isLogined
+        }
     },
 
     emitChange: function () {
@@ -31,21 +29,23 @@ const UserStore = Object.assign({}, EventEmitter.prototype, {
     },
 
     addChangeListener: function(callback) {
-        console.log('Add listener');
+        console.log('Add listener to UserStore: ' + callback.name);
         this.on(CHANGE, callback);
     },
 
     removeChangeListener: function(callback) {
-        console.log('Remove listener');
+        console.log('Remove listener from UserStore: ' + callback.name);
         this.removeListener(CHANGE, callback);
     }
 });
 
 AppDispatcher.register(function (action) {
-    console.log('Dispatch action:' + JSON.stringify(action));
+    console.log('Dispatch action in UserStore:' + JSON.stringify(action));
     switch (action.type) {
         case AppConstants.REQUEST_LOGIN: {
             isLoading = true;
+            loadingError = null;
+            isAutologin = action.autologin;
             UserStore.emitChange();
             break;
         }
@@ -54,6 +54,7 @@ AppDispatcher.register(function (action) {
             isLoading = false;
             isLogined = false;
             loadingError = action.error;
+            isAutologin = action.autologin;
             UserStore.emitChange();
             break;
         }
@@ -62,12 +63,13 @@ AppDispatcher.register(function (action) {
             isLoading = false;
             isLogined = true;
             loadingError = null;
+            isAutologin = action.autologin;
             UserStore.emitChange();
             break;
         }
 
         default: {
-            console.log('No such action ${action.type}')
+            console.log(`Ignore action ${action.type} in UserStore`)
         }
     }
 });

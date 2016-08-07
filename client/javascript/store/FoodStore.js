@@ -31,18 +31,18 @@ const FoodStore = Object.assign({}, EventEmitter.prototype, {
     },
 
     addChangeListener: function(callback) {
-        console.log('Add listener');
+        console.log('Add listener to FoodStore: ' + callback.name);
         this.on(CHANGE, callback);
     },
 
     removeChangeListener: function(callback) {
-        console.log('Remove listener');
+        console.log('Remove listener from FoodStore: ' + callback.name);
         this.removeListener(CHANGE, callback);
     }
 });
 
 AppDispatcher.register(function (action) {
-    console.log('Dispatch action:' + JSON.stringify(action));
+    console.log('Dispatch action in FoodStore:' + JSON.stringify(action));
     switch (action.type) {
         case AppConstants.FOOD_LOADED: {
             isLoading = false;
@@ -52,7 +52,7 @@ AppDispatcher.register(function (action) {
         }
 
         default: {
-            console.log('No such action ${action.type}')
+            console.log(`Ignore action ${action.type} in FoodStore`)
         }
     }
 });

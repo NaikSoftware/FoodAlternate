@@ -10,18 +10,10 @@ import FoodTable from './FoodTable';
 import UserStore from '../store/UserStore';
 import AppActions from '../AppActions';
 
-function getStateFromStore() {
-    return {
-        isLoading: UserStore.isLoading(),
-        isLogined: UserStore.isLogined(),
-        loadingError: UserStore.getLoadingError()
-    }
-}
-
 const App = React.createClass({
 
     getInitialState() {
-        return getStateFromStore();
+        return UserStore.getState();
     },
 
     componentWillMount() {
@@ -33,7 +25,7 @@ const App = React.createClass({
     },
 
     onChange() {
-        let state = getStateFromStore();
+        let state = UserStore.getState();
         if (state.loadingError && !state.isLogined) state.loginError = true;
         this.setState(state);
     },
@@ -54,7 +46,7 @@ const App = React.createClass({
         return <div>
             <Toolbar/>
             {content}
-            {this.state.loginError ? <LoginErrorDialog handleClose={this.handleCloseLoginError}/> : null}
+            {this.state.loginError && !this.state.isAutologin ? <LoginErrorDialog handleClose={this.handleCloseLoginError}/> : null}
         </div>
     },
 

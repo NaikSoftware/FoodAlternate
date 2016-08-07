@@ -10,7 +10,8 @@ const AppActions = {
 
     login(name, password) {
         AppDispatcher.dispatch({
-            type: AppConstants.REQUEST_LOGIN
+            type: AppConstants.REQUEST_LOGIN,
+            autologin: false
         });
         
         Api.login(name, password)
@@ -25,20 +26,23 @@ const AppActions = {
     
     tryAutoLogin(authToken) {
         AppDispatcher.dispatch({
-            type: AppConstants.REQUEST_LOGIN
+            type: AppConstants.REQUEST_LOGIN,
+            autologin: true
         });
         
         if (!authToken) {
             AppDispatcher.dispatch({
                 type: AppConstants.RESPONSE_LOGIN_FAIL,
-                error: 'Verification token must be not null'
+                error: 'Verification token must be not null',
+                autologin: true
             });
         } else {
             Api.autoLogin()
                 .then(response => processLoginResponse(response.data, true))
                 .catch(err => {
                     AppDispatcher.dispatch({
-                        type: AppConstants.RESPONSE_LOGIN_FAIL
+                        type: AppConstants.RESPONSE_LOGIN_FAIL,
+                        autologin: true
                     })
                 })
         }
@@ -48,7 +52,8 @@ const AppActions = {
 function processLoginResponse(response, autologin) {
     if (response.status === 'OK') {
         AppDispatcher.dispatch({
-            type: AppConstants.RESPONSE_LOGIN_SUCCESS
+            type: AppConstants.RESPONSE_LOGIN_SUCCESS,
+            autologin: autologin
         });
         AppDispatcher.dispatch({
             type: AppConstants.FOOD_LOADED,
@@ -57,7 +62,9 @@ function processLoginResponse(response, autologin) {
     } else {
         AppDispatcher.dispatch({
             type: AppConstants.RESPONSE_LOGIN_FAIL,
-            error: autologin ? null : response.message
+            error: autologin ? null : response.message,
+            autologin: autologin
+            
         })
     }
 }
